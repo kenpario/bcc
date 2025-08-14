@@ -34,7 +34,7 @@
     <nav class="bg-gray-200 border-gray-200 dark:border-gray-600 dark:bg-gray-800 m-2 rounded-lg shadow-lg">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
             <!-- Logo -->
-            <a href="https://flowbite.com" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BCC</span>
             </a>
@@ -55,7 +55,7 @@
             <div id="mega-menu-full" class="hidden items-center justify-between w-full md:flex md:w-auto md:order-1">
                 <ul class="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
                     <li>
-                        <a href="#"
+                        <a href="/"
                             class="block py-2 px-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
                             aria-current="page">Home</a>
                     </li>
@@ -71,9 +71,9 @@
                         </button>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="/categories"
                             class="block py-2 px-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                            Marketplace
+                            Categories
                         </a>
                     </li>
                     <li>
@@ -189,7 +189,7 @@
     <main>
         @yield('content')
     </main>
-    <footer class="bg-gray-200 rounded-lg shadow-sm m-2 dark:bg-gray-800 bottom-0 left-0 right-0 shadow-lg">
+    <footer class="bg-gray-200 rounded-lg shadow-sm m-2 dark:bg-gray-800 bottom-0 left-0 right-0 shadow-lg fixed">
         <div class="flex w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
             <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="/"
                     class="hover:underline">BCC™</a>. All Rights Reserved.
