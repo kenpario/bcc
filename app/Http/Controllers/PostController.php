@@ -16,8 +16,13 @@ class PostController extends Controller
     }
 
     public function create()
-    {
-        return view('posts.create');
+    
+    {   
+        $categories = Category::all();
+
+        return view('posts.create',compact('categories'));
+
+        
     }
 
     public function store(Request $request)
@@ -26,7 +31,7 @@ class PostController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'color' => 'required',
-            'category' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'price' => 'required',
         ]);
 
@@ -36,14 +41,16 @@ class PostController extends Controller
     }
 
     public function edit(Post $post) {
-        return view('posts.edit',['post' => $post]);
+
+        $categories = Category::all();
+        return view('posts.edit',['post' => $post],compact('categories'));
     }
 
     public function update(Request $request, Post $post) {
         $formFields = $request->validate([
             'name' => 'required',
             'color' => 'required',
-            'category' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'price' => 'required',
         ]);
 

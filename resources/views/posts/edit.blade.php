@@ -16,7 +16,8 @@
                 @error('name')
                     <p class="text-red-500 text-xs m-1">{{ $message }}</p>
                 @enderror
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="name" value="{{ $post->name }}"/>
+                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="name"
+                    value="{{ $post->name }}" />
             </div>
 
             <div class="mb-6">
@@ -24,30 +25,40 @@
                 @error('color')
                     <p class="text-red-500 text-xs m-1">{{ $message }}</p>
                 @enderror
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="color" value="{{ $post->color }}"/>
+                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="color"
+                    value="{{ $post->color }}" />
 
-            <div class="mb-6">
-                <label for="category" class="inline-block text-lg mb-2 dark:text-white">Category</label>
-                @error('category')
-                    <p class="text-red-500 text-xs m-1">{{ $message }}</p>
-                @enderror
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="category" value="{{ $post->category }}"/>
-            </div>
+                <div class="mb-6">
+                    <label for="category_id" class="inline-block text-lg mb-2 dark:text-white">Category</label>
+                    @error('category_id')
+                        <p class="text-red-500 text-xs m-1">{{ $message }}</p>
+                    @enderror
 
-            <div class="mb-6">
-                <label for="price" class="inline-block text-lg mb-2 dark:text-white">Price</label>
-                @error('price')
-                    <p class="text-red-500 text-xs m-1">{{ $message }}</p>
-                @enderror
-                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="price" value="{{ $post->price }}"/>
-            </div>
-            <div class="mb-6">
-                <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-red-800">
-                    Update Item
-                </button>
+                    <select name="category_id" id="category_id" class="border border-gray-200 rounded p-2 w-full">
+                        <option value="">-- Select a Category --</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
-                <a href="/" class="text-black ml-4 dark:text-white"> Back </a>
-            </div>
+                <div class="mb-6">
+                    <label for="price" class="inline-block text-lg mb-2 dark:text-white">Price</label>
+                    @error('price')
+                        <p class="text-red-500 text-xs m-1">{{ $message }}</p>
+                    @enderror
+                    <input type="number" class="border border-gray-200 rounded p-2 w-full" name="price"
+                        value="{{ $post->price }}" />
+                </div>
+                <div class="mb-6">
+                    <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-red-800">
+                        Update Item
+                    </button>
+
+                    <a href="/" class="text-black ml-4 dark:text-white"> Back </a>
+                </div>
         </form>
     </div>
 @endsection

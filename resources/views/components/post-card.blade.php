@@ -9,7 +9,7 @@
         {{ $post->color }}
     </td>
     <td class="px-6 py-4">
-        {{ $post->category }}
+        {{ $post->category->name }}
     </td>
     <td class="px-6 py-4">
         {{ $post->price }} Lei

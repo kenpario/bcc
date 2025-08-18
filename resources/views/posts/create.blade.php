@@ -14,7 +14,7 @@
                 @error('name')
                     <p class="text-red-500 text-xs m-1">{{ $message }}</p>
                 @enderror
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="name" />
+                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="name" value="{{ old('name') }}"/>
             </div>
 
             <div class="mb-6">
@@ -22,15 +22,23 @@
                 @error('color')
                     <p class="text-red-500 text-xs m-1">{{ $message }}</p>
                 @enderror
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="color" />
+                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="color" value="{{ old('color') }}"/>
             </div>
 
             <div class="mb-6">
-                <label for="category" class="inline-block text-lg mb-2 dark:text-white">Category</label>
-                @error('category')
+                <label for="category_id" class="inline-block text-lg mb-2 dark:text-white">Category</label>
+                @error('category_id')
                     <p class="text-red-500 text-xs m-1">{{ $message }}</p>
                 @enderror
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="category" />
+
+                <select name="category_id" id="category_id" class="border border-gray-200 rounded p-2 w-full">
+                    <option value="">-- Select a Category --</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="mb-6">
@@ -38,7 +46,7 @@
                 @error('price')
                     <p class="text-red-500 text-xs m-1">{{ $message }}</p>
                 @enderror
-                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="price" />
+                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="price" value="{{ old('price') }}"/>
             </div>
             <div class="mb-6">
                 <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-red-800">
