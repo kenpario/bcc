@@ -35,6 +35,8 @@ class PostController extends Controller
             'price' => 'required',
         ]);
 
+        $formFields['user_id'] = auth()->id();
+
         Post::create($formFields);
 
         return redirect('/');
@@ -47,6 +49,10 @@ class PostController extends Controller
     }
 
     public function update(Request $request, Post $post) {
+
+        if($post->user_id != auth()->id()) {
+            abort(403,'Unauthorized Action!');
+        }
         $formFields = $request->validate([
             'name' => 'required',
             'color' => 'required',
@@ -54,12 +60,19 @@ class PostController extends Controller
             'price' => 'required',
         ]);
 
+        $formFields['user_id'] = auth()->id();
+
         $post->update($formFields);
 
         return back();
     }
 
     public function destroy(Post $post) {
+        
+        if($post->user_id != auth()->id()) {
+            abort(403,'Unauthorized Action!');
+        }
+
         $post->delete();
 
         return redirect('/');

@@ -14,6 +14,7 @@
     <td class="px-6 py-4">
         {{ $post->price }} Lei
     </td>
+    @if(auth() && auth()->id() === $post->user_id)
     <td class="px-6 py-4 flex gap-5">
         <a href="/posts/{{ $post->id }}/edit"
             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
@@ -25,4 +26,5 @@
             </button>
         </form>
     </td>
+    @endauth
 </tr>

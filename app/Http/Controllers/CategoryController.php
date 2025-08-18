@@ -25,27 +25,43 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
 
+
+        $formFields['user_id'] = auth()->id();
+
         Category::create($formFields);
 
         return redirect('/categories');
     }
 
-    public function edit(Category $category) {
-        return view('categories.edit',['category' => $category]);
+    public function edit(Category $category)
+    {
+        return view('categories.edit', ['category' => $category]);
     }
 
-     public function update(Request $request, Category $category)
+    public function update(Request $request, Category $category)
     {
+        if ($category->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action!');
+        }
+
         $formFields = $request->validate([
             'name' => 'required',
         ]);
+
+        $formFields['user_id'] = auth()->id();
 
         $category->update($formFields);
 
         return back();
     }
 
-    public function destroy(Category $category){
+    public function destroy(Category $category)
+    {
+
+        if ($category->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action!');
+        }
+
         $category->delete();
 
         return redirect('/categories');
