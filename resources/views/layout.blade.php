@@ -30,7 +30,8 @@
 <body class="flex flex-col min-h-screen dark:bg-gray-700">
 
     <!-- Navbar -->
-    <nav class="bg-gray-200 dark:bg-gray-800 border-gray-200 dark:border-gray-600 shadow-lg rounded-lg m-2">
+    <nav class="bg-gray-200 dark:bg-gray-800 border-gray-200 dark:border-gray-600 shadow-lg rounded-lg m-2"
+        x-data="{ open: false }">
         <div class="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -38,31 +39,125 @@
                 <span class="text-2xl font-bold dark:text-white">BCC</span>
             </a>
 
-            <!-- Menu button for mobile -->
-            <button data-collapse-toggle="mobile-menu" type="button"
-                class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600">
+            <!-- Mobile menu button -->
+            <button @click="open = !open"
+                class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-lg focus:outline-none">
                 <span class="sr-only">Open main menu</span>
-                <i class="fas fa-bars fa-lg"></i>
+                <i class="fas fa-bars fa-lg" x-show="!open"></i>
+                <i class="fas fa-times fa-lg" x-show="open"></i>
             </button>
 
-            <!-- Menu Links -->
-            <div id="mobile-menu" class="hidden md:flex md:items-center space-x-6">
+            <!-- Desktop menu -->
+            <div class="hidden md:flex md:items-center space-x-6">
                 @auth
-                    <a href="/" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">Posts</a>
-                    <a href="/categories" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">Categories</a>
-                    <form method="POST" action="/logout" class="inline">
-                        @csrf
-                        <button type="submit"
-                            class="text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-red-400 font-medium flex items-center space-x-2">
-                            <i class="fas fa-door-closed"></i>
-                            <span>Logout</span>
+                    <a href="/"
+                        class="flex items-center space-x-2 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                        <i class="fas fa-book"></i>
+                        <span>Posts</span>
+                    </a>
+                    <a href="/categories"
+                        class="flex items-center space-x-2 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                        <i class="fas fa-bookmark"></i>
+                        <span>Categories</span>
+                    </a>
+
+                    <!-- Dropdown -->
+                    <div class="relative">
+                        <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                            class="flex items-center space-x-2 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                            <i class="fas fa-caret-down"></i>
+                            <span>User</span>
                         </button>
-                    </form>
+                        <div id="dropdownNavbar"
+                            class="z-10 hidden font-normal bg-gray-200 divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-800 dark:divide-gray-600">
+                            <ul class="py-2 text-sm text-black dark:text-white">
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                                </li>
+                            </ul>
+                            <div class="py-1">
+                                <form method="POST" action="/logout">
+                                    @csrf
+                                    <button type="submit"
+                                        class="flex items-center space-x-2 px-4 py-2 text-gray-900 dark:text-white hover:text-red-500 dark:hover:text-red-500 font-medium">
+                                        <i class="fas fa-door-closed"></i>
+                                        <span>Logout</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 @else
-                    <a href="/register" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">Register</a>
-                    <a href="/login" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">Login</a>
+                    <a href="/register"
+                        class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                        Register
+                    </a>
+                    <a href="/login"
+                        class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                        Login
+                    </a>
                 @endauth
             </div>
+        </div>
+
+        <!-- Mobile dropdown -->
+        <div x-show="open" x-transition
+            class="md:hidden bg-gray-200 dark:bg-gray-700 mx-2 mt-2 mb-3 px-4 pb-3 pt-3 space-y-2 rounded-lg shadow-lg">
+            @auth
+                <a href="/"
+                    class="flex items-center space-x-2 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                    <i class="fas fa-book"></i>
+                    <span>Posts</span>
+                </a>
+                <a href="/categories"
+                    class="flex items-center space-x-2 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Categories</span>
+                </a>
+
+                <!-- Mobile Dropdown -->
+                <details class="bg-gray-100 dark:bg-gray-800 rounded-md mt-2 shadow-sm">
+                    <summary
+                        class="flex items-center space-x-2 px-4 py-2 cursor-pointer text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                        <i class="fas fa-caret-down"></i>
+                        <span>User</span>
+                    </summary>
+                    <div class="pl-6 py-2 space-y-1">
+                        <a href="#"
+                            class="block px-2 py-1 text-sm text-gray-900 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Edit Profile</a>
+                        <a href="#"
+                            class="block px-2 py-1 text-sm text-gray-900 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Settings</a>
+                        <a href="#"
+                            class="block px-2 py-1 text-sm text-gray-900 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Earnings</a>
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <button type="submit"
+                                class="flex items-center space-x-2 px-2 py-1 text-sm text-gray-900 dark:text-white hover:text-red-500 dark:hover:text-red-500 font-medium">
+                                <i class="fas fa-door-closed"></i>
+                                <span>Logout</span>
+                            </button>
+                        </form>
+                    </div>
+                </details>
+            @else
+                <a href="/register"
+                    class="block text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                    Register
+                </a>
+                <a href="/login"
+                    class="block text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
+                    Login
+                </a>
+            @endauth
         </div>
     </nav>
 

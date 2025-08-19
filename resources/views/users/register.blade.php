@@ -54,7 +54,7 @@
                 </button>
             </div>
 
-            <div class="mt-8 dark:text-white">
+            <div class="mt-6 dark:text-white">
                 <p>
                     Already have an account?
                     <a href="/login" class="text-laravel ">Login</a>

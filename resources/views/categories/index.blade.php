@@ -31,11 +31,11 @@
                         <x-category-card :category="$category" />
                     @endforeach
                 @else
-                    Not Found
+                    <x-category-not-found-card/>
                 @endunless
             </tbody>
         </table>
-        <div class="mt-6 p-4">{{$posts->links()}}</div>
+        <div class="mt-6 p-4">{{$categories->links()}}</div>
     </div>
 
 @endsection
