@@ -5,7 +5,7 @@
             <h2 class="text-2xl font-bold uppercase mb-1 dark:text-white">
                 Register
             </h2>
-            <p class="mb-4 dark:text-white">Create an account to post gigs</p>
+            <p class="mb-4 dark:text-white">Create an account</p>
         </header>
 
         <form method="POST" action="/users">

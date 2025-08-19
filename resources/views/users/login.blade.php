@@ -5,7 +5,7 @@
             <h2 class="text-2xl font-bold uppercase mb-1 dark:text-white">
                 Log In
             </h2>
-            <p class="mb-4 dark:text-white">Log in to post gigs</p>
+            <p class="mb-4 dark:text-white">Log in</p>
         </header>
 
         <form method="POST" action="/users/authenticate">

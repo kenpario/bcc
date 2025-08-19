@@ -20,6 +20,7 @@ class UserController extends Controller
         ]);
 
         $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['group_id'] = '2';
 
         $user = User::create($formFields);
 

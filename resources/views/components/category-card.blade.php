@@ -5,7 +5,7 @@
     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         {{ $category->name }}
     </th>
-    @if(auth() && auth()->id() === $category->user_id)
+    @if(auth() && (auth()->id() === $category->user_id || auth()->user()->group_id === 1))
     <td class="px-6 py-4 flex gap-5">
         <a href="/categories/{{ $category->id }}/edit"
             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>

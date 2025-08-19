@@ -50,7 +50,7 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post) {
 
-        if($post->user_id != auth()->id()) {
+        if($post->user_id != auth()->id() && auth()->user()->group_id != 1) {
             abort(403,'Unauthorized Action!');
         }
         $formFields = $request->validate([
@@ -59,9 +59,7 @@ class PostController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required',
         ]);
-
-        $formFields['user_id'] = auth()->id();
-
+        
         $post->update($formFields);
 
         return back();
@@ -69,7 +67,7 @@ class PostController extends Controller
 
     public function destroy(Post $post) {
         
-        if($post->user_id != auth()->id()) {
+        if($post->user_id != auth()->id() && auth()->user()->group_id != 1) {
             abort(403,'Unauthorized Action!');
         }
 

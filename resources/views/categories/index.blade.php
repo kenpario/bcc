@@ -35,6 +35,7 @@
                 @endunless
             </tbody>
         </table>
+        <div class="mt-6 p-4">{{$posts->links()}}</div>
     </div>
 
 @endsection

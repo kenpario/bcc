@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    @if(auth() && auth()->id() === $post->user_id)
+    @if(auth() && (auth()->id() === $post->user_id || auth()->user()->group_id === 1))
     <div class="bg-gray-200 dark:bg-gray-800 p-10 max-w-lg mx-auto mt-24 shadow-lg rounded-lg">
         <header class="text-center">
             <h2 class="text-2xl font-bold uppercase mb-1 dark:text-white">

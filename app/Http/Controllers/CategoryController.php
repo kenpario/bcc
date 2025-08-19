@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('categories.index', [
-            'categories' => Category::latest()->get(),
+            'categories' => Category::latest()->paginate(10),
         ]);
     }
 
@@ -40,15 +40,13 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        if ($category->user_id != auth()->id()) {
+        if ($category->user_id != auth()->id() && auth()->user()->group_id != 1) {
             abort(403, 'Unauthorized Action!');
         }
 
         $formFields = $request->validate([
             'name' => 'required',
         ]);
-
-        $formFields['user_id'] = auth()->id();
 
         $category->update($formFields);
 
@@ -58,7 +56,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
 
-        if ($category->user_id != auth()->id()) {
+        if ($category->user_id != auth()->id() && auth()->user()->group_id != 1) {
             abort(403, 'Unauthorized Action!');
         }
 
