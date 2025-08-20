@@ -30,6 +30,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 
+    Route::get('/users/create',[UserController::class,'createNewUser']);
+    Route::post('/users/admincreate', [UserController::class, 'storeNewUser']);
+    Route::get('/users/{user}/adminedit', [UserController::class, 'adminEdit']);
+    Route::put('/users/{user}/adminupdate', [UserController::class, 'adminUpdate']);
     Route::get('/users/list', [UserController::class, 'show']);
     Route::get('/users/{user}/edit', [UserController::class, 'edit']);
     Route::put('/users/{user}', [UserController::class, 'update']);

@@ -32,7 +32,7 @@
                 @enderror
 
                 <select name="category_id" id="category_id" class="border border-gray-200 rounded p-2 w-full">
-                    <option value="">-- Select a Category --</option>
+                    <option value="">Select a Category</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}

@@ -8,12 +8,15 @@
      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         {{ $user->email }}
     </th>
+    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        {{ $user->group->name}}
+    </th>
      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         {{ $user->password }}
     </th>
     @if(auth() && auth()->user()->group_id === 1)
     <td class="px-6 py-4 flex gap-5">
-        <a href="/users/{{ $user->id }}/edit"
+        <a href="/users/{{ $user->id }}/adminedit"
             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
         <form method="POST" action="/users/{{ $user->id }}">
             @csrf

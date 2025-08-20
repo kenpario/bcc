@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -109,5 +110,63 @@ class UserController extends Controller
         return view('users.users-list', [
             'users' => User::latest()->paginate(10),
         ]);
+    }
+
+    public function createNewUser(){
+
+        $groups = Group::all();
+
+        return view('users.create',compact('groups'));
+    }
+
+    public function storeNewUser(Request $request)
+    {
+        $formFields = $request->validate([
+            "name" => ['required', 'min:3'],
+            "email" => ['required', 'email', Rule::unique('users', 'email')],
+            "group_id" =>'required|exists:groups,id',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $formFields['password'] = bcrypt($formFields['password']);
+
+        $user = User::create($formFields);
+
+        return redirect('/users/list');
+    }
+
+    public function adminEdit(User $user)
+    {
+        $groups = Group::all();
+        if ($user->id != auth()->id() && auth()->user()->group_id != 1) {
+            abort(403, 'Unauthorized Action!');
+        }
+        return view('users.edit-admin', ['user' => $user],compact('groups'));
+    }
+
+    public function adminUpdate(User $user, Request $request) {
+        
+
+        if ($user->id != auth()->id() && auth()->user()->group_id != 1) {
+            abort(403, 'Unauthorized Action!');
+        }
+
+        $formFields = $request->validate([
+            "name" => ['required', 'min:3'],
+            "email" => ['required', 'email'],
+            "group_id" => 'required|exists:groups,id',
+        ]);
+
+        if ($request->filled('password')) {
+            $request->validate([
+                'password' => 'confirmed|min:6',
+            ]);
+            $formFields['password'] = bcrypt($request->password);
+        }
+
+
+        $user->update($formFields);
+
+        return back();
     }
 }
