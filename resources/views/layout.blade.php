@@ -66,23 +66,21 @@
                         <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
                             class="flex items-center space-x-2 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium">
                             <i class="fas fa-caret-down"></i>
-                            <span>User</span>
+                            <span>{{ Auth::user()->name }}</span>
                         </button>
                         <div id="dropdownNavbar"
                             class="z-10 hidden font-normal bg-gray-200 divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-800 dark:divide-gray-600">
                             <ul class="py-2 text-sm text-black dark:text-white">
                                 <li>
-                                    <a href="#"
+                                    <a href="/users/{{ Auth::user()->id }}/edit"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit Profile</a>
                                 </li>
+                                @if (auth() && auth()->user()->group_id === 1)
                                 <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                                    <a href="/users/list"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">User List</a>
                                 </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                                </li>
+                                @endif
                             </ul>
                             <div class="py-1">
                                 <form method="POST" action="/logout">
@@ -132,12 +130,12 @@
                         <span>User</span>
                     </summary>
                     <div class="pl-6 py-2 space-y-1">
-                        <a href="#"
+                        <a href="/users/{{ Auth::user()->id }}/edit"
                             class="block px-2 py-1 text-sm text-gray-900 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Edit Profile</a>
+                        @if(auth() && auth()->user()->group_id === 1)
                         <a href="#"
-                            class="block px-2 py-1 text-sm text-gray-900 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Settings</a>
-                        <a href="#"
-                            class="block px-2 py-1 text-sm text-gray-900 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Earnings</a>
+                            class="block px-2 py-1 text-sm text-gray-900 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">User List</a>
+                        @endif
                         <form method="POST" action="/logout">
                             @csrf
                             <button type="submit"

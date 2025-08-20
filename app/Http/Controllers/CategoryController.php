@@ -35,6 +35,10 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        if ($category->user_id != auth()->id() && auth()->user()->group_id != 1) {
+            abort(403, 'Unauthorized Action!');
+            
+        }
         return view('categories.edit', ['category' => $category]);
     }
 
@@ -42,6 +46,7 @@ class CategoryController extends Controller
     {
         if ($category->user_id != auth()->id() && auth()->user()->group_id != 1) {
             abort(403, 'Unauthorized Action!');
+            
         }
 
         $formFields = $request->validate([

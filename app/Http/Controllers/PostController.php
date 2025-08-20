@@ -44,6 +44,10 @@ class PostController extends Controller
 
     public function edit(Post $post) {
 
+        if($post->user_id != auth()->id() && auth()->user()->group_id != 1) {
+            abort(403,'Unauthorized Action!');
+            
+        }
         $categories = Category::all();
         return view('posts.edit',['post' => $post],compact('categories'));
     }
@@ -52,6 +56,7 @@ class PostController extends Controller
 
         if($post->user_id != auth()->id() && auth()->user()->group_id != 1) {
             abort(403,'Unauthorized Action!');
+            
         }
         $formFields = $request->validate([
             'name' => 'required',

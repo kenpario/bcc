@@ -5,7 +5,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-
+Route::middleware(['guest'])->group(function () {
+    Route::get('/register', [UserController::class, 'create']);
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/users', [UserController::class, 'store']);
+    Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+});
 
 Route::middleware(['auth'])->group(function () {
 
@@ -25,13 +30,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 
+    Route::get('/users/list', [UserController::class, 'show']);
+    Route::get('/users/{user}/edit', [UserController::class, 'edit']);
+    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
     Route::post('logout', [UserController::class, 'logout']);
-});
 
-Route::middleware(['guest'])->group(function () {
-    Route::get('/register', [UserController::class, 'create']);
-    Route::get('/login', [UserController::class, 'login'])->name('login');
 });
-
-Route::post('/users', [UserController::class, 'store']);
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
